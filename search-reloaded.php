@@ -6,7 +6,7 @@ Description: Replaces the default WordPress search engine with a rudimentary one
 Author: Denis de Bernardy
 Version: 3.1
 Author URI: http://www.getsemiologic.com
-Update Service: http://version.semiologic.com/wordpress
+Update Service: http://version.semiologic.com/plugins
 Update Tag: search_reloaded
 Update Package: http://www.semiologic.com/media/software/wp-tweaks/search-reloaded/search-reloaded.zip
 */
