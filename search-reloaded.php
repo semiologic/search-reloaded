@@ -271,6 +271,8 @@ class search_reloaded
 		
 		$post = get_post($post_id);
 		
+		if ( $post->post_type == 'revision' ) return;
+		
 		if ( !$post
 			|| $post->post_status != 'publish'
 			|| !in_array($post->post_type, array('post', 'page', 'attachment'))
