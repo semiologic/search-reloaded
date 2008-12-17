@@ -94,7 +94,7 @@ class widget_utils
 		echo '<p>'
 			. 'It will <b>NOT</b> affect anything else. In particular WordPress\'s built-in Pages widget. (Use the Silo Pages widget instead.)'
 			. '</p>';
-	
+		
 		echo '<table style="width: 100%;">';
 		
 		echo '<tr valign="top">' . "\n"
@@ -136,7 +136,26 @@ class widget_utils
 				)
 			. ' />'
 			. '&nbsp;'
-			. 'Exclude this entry from automatically generated lists, and search reloaded results, and search reloaded results'
+			. 'Exclude this entry from automatically generated lists'
+			. '</label>'
+		 	. '</td>' . "\n"
+			. '</tr>' . "\n";
+		
+		echo '<tr valign="top">' . "\n"
+			. '<th scope="row">'
+			. '&nbsp;'
+			. '</th>' . "\n"
+			. '<td>'
+			. '<label>'
+			. '<input type="checkbox" tabindex="5"'
+			. ' name="widgets_exception"'
+			. ( get_post_meta($post_ID, '_widgets_exception', true)
+				? ' checked="checked"'
+				: ''
+				)
+			. ' />'
+			. '&nbsp;'
+			. '... except for silo stub, silo map, search reloaded and smart links.'
 			. '</label>'
 		 	. '</td>' . "\n"
 			. '</tr>' . "\n";
@@ -161,12 +180,18 @@ class widget_utils
 			}
 		
 			delete_post_meta($post_ID, '_widgets_exclude');
+			delete_post_meta($post_ID, '_widgets_exception');
 			delete_post_meta($post_ID, '_widgets_label');
 			delete_post_meta($post_ID, '_widgets_desc');
 
 			if ( $_POST['widgets_exclude'])
 			{
 				add_post_meta($post_ID, '_widgets_exclude', '1', true);
+				
+				if ( $_POST['widgets_exception'])
+				{
+					add_post_meta($post_ID, '_widgets_exception', '1', true);
+				}
 			}
 			
 			$label = trim(strip_tags(stripslashes($_POST['widgets_label'])));
