@@ -48,13 +48,22 @@ class search_reloaded
 		
 		if ( !is_admin() )
 		{
-			if ( !get_option('search_reloaded_version') )
+			$cur_ver = '3.1.1';
+			
+			if ( !( $ver = get_option('search_reloaded_version') )
+				|| version_compare($ver, $cur_ver)
+				)
 			{
 				global $wpdb;
 
-				$wpdb->query("update $wpdb->posts set search_title = ''");
+				$wpdb->query("
+					UPDATE	$wpdb->posts
+					SET		search_title = '',
+							search_keywords = '',
+							search_content = ''
+					");
 				update_option('search_reloaded_indexed', 0);
-				update_option('search_reloaded_version', '3.1');
+				update_option('search_reloaded_version', $cur_ver);
 			}
 			
 			if ( !get_option('search_reloaded_indexed') )
