@@ -4,7 +4,7 @@ Plugin Name: Search Reloaded
 Plugin URI: http://www.semiologic.com/software/wp-tweaks/search-reloaded/
 Description: Replaces the default WordPress search engine with a rudimentary one that orders posts by relevance.
 Author: Denis de Bernardy
-Version: 3.1.1 RC
+Version: 3.1.2 RC
 Author URI: http://www.getsemiologic.com
 Update Service: http://version.semiologic.com/plugins
 Update Tag: search_reloaded
@@ -48,7 +48,7 @@ class search_reloaded
 		
 		if ( !is_admin() )
 		{
-			$cur_ver = '3.1.1';
+			$cur_ver = '3.1.2';
 			
 			if ( !( $ver = get_option('search_reloaded_version') )
 				|| version_compare($ver, $cur_ver, '<')
@@ -305,8 +305,13 @@ class search_reloaded
 		setup_postdata($post);
 		$wp_query->in_the_loop = true;
 		
+		#echo '<pre>';
+		#echo "Indexing $post_id...";
+		
 		$title = $post->post_title;
 		$keywords = implode(', ', search_reloaded::get_keywords($post_id, $post->post_type == 'post'));
+		
+		#$content = $post->post_content;
 		
 		$content = trim($post->post_content)
 			? apply_filters('the_content', $post->post_content)
@@ -340,6 +345,8 @@ class search_reloaded
 					search_content = '" . $wpdb->escape($content) . "'
 			WHERE	ID = $post_id
 			");
+		
+		#echo '</pre>';
 	} # index_post()
 	
 	
@@ -415,7 +422,7 @@ class search_reloaded
 	function index_posts()
 	{
 		if ( is_admin()
-			|| !( is_front_page() || is_home() || is_singular() || is_archive() || is_search() )
+			|| !( is_front_page() || is_home() || is_single() || is_archive() || is_search() )
 			) return;
 		
 		#dump('index');
