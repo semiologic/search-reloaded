@@ -51,7 +51,7 @@ class search_reloaded
 			$cur_ver = '3.1.1';
 			
 			if ( !( $ver = get_option('search_reloaded_version') )
-				|| version_compare($ver, $cur_ver)
+				|| version_compare($ver, $cur_ver, '<')
 				)
 			{
 				global $wpdb;
