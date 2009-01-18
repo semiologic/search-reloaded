@@ -4,7 +4,7 @@ Plugin Name: Search Reloaded
 Plugin URI: http://www.semiologic.com/software/wp-tweaks/search-reloaded/
 Description: Replaces the default WordPress search engine with a rudimentary one that orders posts by relevance.
 Author: Denis de Bernardy
-Version: 3.1.2
+Version: 3.1.3 alpha
 Author URI: http://www.getsemiologic.com
 Update Service: http://version.semiologic.com/plugins
 Update Tag: search_reloaded
@@ -55,13 +55,14 @@ class search_reloaded
 				)
 			{
 				global $wpdb;
-
+				
 				$wpdb->query("
 					UPDATE	$wpdb->posts
 					SET		search_title = '',
 							search_keywords = '',
 							search_content = ''
 					");
+				
 				update_option('search_reloaded_indexed', 0);
 				update_option('search_reloaded_version', $cur_ver);
 			}
@@ -231,7 +232,7 @@ class search_reloaded
 		global $wpdb;
 		
 		# enforce MyISAM
-		$wpdb->query("ALTER TABLE `$wpdb->posts` ENGINE = MYISAM");
+		# $wpdb->query("ALTER TABLE `$wpdb->posts` ENGINE = MYISAM");
 		
 		# add three columns
 		$wpdb->query("
