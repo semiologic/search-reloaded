@@ -3,12 +3,10 @@
 Plugin Name: Search Reloaded
 Plugin URI: http://www.semiologic.com/software/wp-tweaks/search-reloaded/
 Description: Replaces the default WordPress search engine with a rudimentary one that orders posts by relevance.
-Author: Denis de Bernardy
 Version: 3.1.3 alpha
+Author: Denis de Bernardy
 Author URI: http://www.getsemiologic.com
-Update Service: http://version.semiologic.com/plugins
-Update Tag: search_reloaded
-Update Package: http://www.semiologic.com/media/software/wp-tweaks/search-reloaded/search-reloaded.zip
+Update Package: https://members.semiologic.com/media/plugins/search-reloaded.zip
 */
 
 /*
@@ -37,8 +35,6 @@ class search_reloaded
 		
 		add_action('admin_menu', array('search_reloaded', 'meta_boxes'));
 		
-		add_filter('sem_api_key_protected', array('search_reloaded', 'sem_api_key_protected'));
-
 		if ( !get_option('search_reloaded_installed') )
 		{
 			search_reloaded::install();
@@ -91,18 +87,6 @@ class search_reloaded
 			. '<p><b style="color: firebrick;">Search Reloaded Error</b><br /><b>Your MySQL version is lower than 4.1.</b> It\'s time to <a href="http://www.semiologic.com/resources/wp-basics/wordpress-server-requirements/">change hosts</a> if yours doesn\'t want to upgrade.</p>'
 			. '</div>';
 	} # mysql_warning()
-
-
-	#
-	# sem_api_key_protected()
-	#
-	
-	function sem_api_key_protected($array)
-	{
-		$array[] = 'http://www.semiologic.com/media/software/wp-tweaks/search-reloaded/search-reloaded.zip';
-		
-		return $array;
-	} # sem_api_key_protected()
 	
 	
 	#
