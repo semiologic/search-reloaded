@@ -3,10 +3,9 @@
 Plugin Name: Search Reloaded
 Plugin URI: http://www.semiologic.com/software/wp-tweaks/search-reloaded/
 Description: Replaces the default WordPress search engine with a rudimentary one that orders posts by relevance.
-Version: 3.1.3
+Version: 3.1.4 alpha
 Author: Denis de Bernardy
 Author URI: http://www.getsemiologic.com
-Update Package: https://members.semiologic.com/media/plugins/search-reloaded/search-reloaded.zip
 */
 
 /*
@@ -185,7 +184,7 @@ class search_reloaded
 		$str = " AND"
 			. " MATCH ($wpdb->posts.search_title, $wpdb->posts.search_keywords, $wpdb->posts.search_content)"
 			. " AGAINST ('" . $wpdb->escape($qs) . "')"
-			. " AND (wp_posts.post_status = 'publish' OR wp_posts.post_author = 1 AND wp_posts.post_status = 'private')";
+			. " AND ( $wpdb->posts.post_status = 'publish' OR ( $wpdb->posts.post_author = 1 AND $wpdb->posts.post_status = 'private' ) ) ";
 		
 		return $str;
 	} # posts_where()
