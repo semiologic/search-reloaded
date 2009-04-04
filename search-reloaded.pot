@@ -1,0 +1,109 @@
+# Search Reloaded pot file.
+# Copyright (C) 2009 Mesoconcepts <http://www.mesoconcepts.com>
+# This file is distributed under the same license as the Search Reloaded package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 4.0\n"
+"Report-Msgid-Bugs-To: https://tickets.semiologic.com\n"
+"POT-Creation-Date: 2009-04-05 00:02+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: search-reloaded-admin.php:30
+msgid "Settings saved."
+msgstr ""
+
+#: search-reloaded-admin.php:49
+msgid "Search Reloaded Settings"
+msgstr ""
+
+#: search-reloaded-admin.php:57
+msgid "Yahoo! BOSS AppID"
+msgstr ""
+
+#: search-reloaded-admin.php:63
+msgid ""
+"This is the <a href=\"http://developer.yahoo.com/search/boss/\"><em>Build "
+"your Own Search Service</em></a> Application ID that you'll be using on this "
+"site. You can <a href=\"https://developer.yahoo.com/wsregapp/\">get one for "
+"free</a> from Yahoo!."
+msgstr ""
+
+#: search-reloaded-admin.php:64
+msgid ""
+"More often than not, a single AppID will be enough for all of your sites. In "
+"Yahoo's application registration form, enter the url of any of them as the "
+"application's location, and paste the AppID that was assigned to you in the "
+"above field. Keep Yahoo's <a href=\"http://developer.yahoo.com/search/boss/"
+"fees.html\">fee structure</a> in mind if you've heavily searched sites, "
+"however. In that case, you may want to get a separate AppID for each of "
+"latter."
+msgstr ""
+
+#: search-reloaded-admin.php:70
+msgid "Site to Search"
+msgstr ""
+
+#: search-reloaded-admin.php:81
+#, php-format
+msgid ""
+"Return search results from <em>%1$s</em> rather than from <em>%2$s</em>."
+msgstr ""
+
+#: search-reloaded-admin.php:88
+msgid "Display Credits"
+msgstr ""
+
+#: search-reloaded-admin.php:99
+msgid ""
+"Display <em>Powered by <a href=\"http://www.semiologic.com/software/search-"
+"reloaded/\">Search Reloaded</a></em> on search results pages. (Combine this "
+"with the <a href=\"http://www.semiologic.com/software/sem-affiliate/"
+"\">Semiologic Affiliate plugin</a>.)"
+msgstr ""
+
+#: search-reloaded-admin.php:108
+msgid "Save Changes"
+msgstr ""
+
+#: search-reloaded.php:66 search-reloaded.php:67
+msgid "Search Reloaded"
+msgstr ""
+
+#: search-reloaded.php:85
+msgid ""
+"Search Reloaded requires the Simple XML extension to query Yahoo!'s web "
+"services. Please contact your host and request that your server be "
+"configured accordingly."
+msgstr ""
+
+#: search-reloaded.php:91
+msgid ""
+"Search Reloaded requires WordPress 2.8 or later. Please upgrade your site."
+msgstr ""
+
+#: search-reloaded.php:97
+msgid ""
+"Search Reloaded is almost ready to be used on your site. Please browse <a "
+"href=\"options-general.php?page=search-reloaded\">Settings / Search "
+"Reloaded</a> and configure it as needed."
+msgstr ""
+
+#: search-reloaded.php:194 search-reloaded.php:253
+#, php-format
+msgid "%d-%d of %d results"
+msgstr ""
+
+#: search-reloaded.php:251
+#, php-format
+msgid ""
+"%d-%d of %d results &bull; Powered by <a href=\"http://www.semiologic.com/"
+"software/search-reloaded/\">Search Reloaded</a>"
+msgstr ""
