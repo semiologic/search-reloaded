@@ -387,4 +387,10 @@ function search_reloaded_admin() {
 
 add_action('load-settings_page_search-reloaded', 'search_reloaded_admin');
 add_action('load-settings_page_search-reloaded', array('search_reloaded_admin', 'save_options'));
+
+if ( !function_exists('load_ysearch') ) :
+function load_ysearch() {
+	include_once dirname(__FILE__) . '/ysearch/ysearch.php';
+} # load_ysearch()
+endif;
 ?>
