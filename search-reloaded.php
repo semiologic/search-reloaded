@@ -3,7 +3,7 @@
 Plugin Name: Search Reloaded
 Plugin URI: http://www.semiologic.com/software/search-reloaded/
 Description: Replaces the default WordPress search engine with a rudimentary one that orders posts by relevance.
-Version: 4.0 alpha
+Version: 4.0 RC
 Author: Denis de Bernardy
 Author URI: http://www.getsemiologic.com
 */
