@@ -204,7 +204,7 @@ class search_reloaded {
 				. '<a href="' . get_permalink() . '">' . get_the_title() . '</a>'
 				. '</h3>' . "\n";
 			
-			echo '<p class="search_content">' . get_the_excerpt()  . '</p>' . "\n";
+			echo '<p class="search_content">' . apply_filters('the_excerpt', get_the_excerpt())  . '</p>' . "\n";
 			
 			echo '<p class="search_url">'
 				. preg_replace("#https?://#", '', get_permalink())
