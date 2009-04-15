@@ -5,7 +5,7 @@
  * @package Search Reloaded
  **/
 
-add_action('settings_page_search-reloaded', array('search_reloaded_admin', 'save_options'));
+add_action('settings_page_search-reloaded', array('search_reloaded_admin', 'save_options'), 0);
 
 class search_reloaded_admin {
 	/**

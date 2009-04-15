@@ -2,7 +2,7 @@
 /*
 Plugin Name: Search Reloaded
 Plugin URI: http://www.semiologic.com/software/search-reloaded/
-Description: Replaces the default WordPress search engine with a rudimentary one that orders posts by relevance.
+Description: Replaces the default WordPress search engine with Yahoo! search.
 Version: 4.0 RC
 Author: Denis de Bernardy
 Author URI: http://www.getsemiologic.com
@@ -158,11 +158,12 @@ class search_reloaded {
 		$res = ysearch::query($s, $start);
 		
 		global $wp_query;
-		
+
 		if ( $res === false ) {
 			search_reloaded::display_posts($wp_query->posts);
 		} else {
-			$wp_query->max_num_pages = intval(ceil($res->attributes()->totalhits / 10));
+			$obj = $res->attributes();
+			$wp_query->max_num_pages = intval(ceil($obj->totalhits / 10));
 			search_reloaded::display_results($res);
 		}
 	} # loop_end()
@@ -236,9 +237,10 @@ class search_reloaded {
 		
 		$find = "<b>$repl</b>";
 		
-		$start = intval($resultset->attributes()->start);
-		$count = intval($resultset->attributes()->count);
-		$total = intval($resultset->attributes()->totalhits);
+		$obj = $resultset->attributes();
+		$start = intval($obj->start);
+		$count = intval($obj->count);
+		$total = intval($obj->totalhits);
 		
 		$first = $total ? ( $start + 1 ) : 0;
 		$last = $start + $count;
