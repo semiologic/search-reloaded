@@ -5,6 +5,8 @@
  * @package Search Reloaded
  **/
 
+add_action('settings_page_search-reloaded', array('search_reloaded_admin', 'save_options'));
+
 class search_reloaded_admin {
 	/**
 	 * save_options()
@@ -21,8 +23,9 @@ class search_reloaded_admin {
 		$site_wide = isset($_POST['site_wide']);
 		$add_credits = isset($_POST['add_credits']);
 		
-		$options = compact('api_key', 'site_wide', 'add_credits');
+		$options = compact('site_wide', 'add_credits');
 		update_option('search_reloaded', $options);
+		update_option('ysearch', $api_key);
 		
 		echo '<div class="updated fade">' . "\n"
 			. '<p>'
@@ -78,7 +81,7 @@ class search_reloaded_admin {
 					)
 				. ' />'
 			. "&nbsp;"
-			. sprintf(__('Return search results from <em>%1$s</em> rather than from <em>%2$s</em>.', 'search-reloaded'), search_reloaded::get_domain(), user_trailingslashit(get_option('home')))
+			. sprintf(__('Return search results from this entire domain (<em>%s</em>) rather than from this WordPress installation only.', 'search-reloaded'), search_reloaded::get_domain())
 			. '</label>' . "\n"
 			. '</td>' . "\n"
 			. '</tr>' . "\n";

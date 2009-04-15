@@ -155,7 +155,7 @@ class search_reloaded {
 			$s .= ' site:' . get_option('home');
 		}
 		
-		$res = ysearch::query($o['api_key'], $s, $start);
+		$res = ysearch::query($s, $start);
 		
 		global $wp_query;
 		
@@ -294,6 +294,9 @@ class search_reloaded {
 		if ( $o === false )
 			$o = search_reloaded::init_options();
 		
+		$api_key = get_option('ysearch');
+		$o['api_key'] = $api_key;
+		
 		return $o;
 	} # get_options()
 	
@@ -306,7 +309,6 @@ class search_reloaded {
 
 	function init_options() {
 		$o = array(
-			'api_key' => '',
 			'site_wide' => '',
 			'add_credits' => true,
 			);
@@ -386,7 +388,6 @@ function search_reloaded_admin() {
 } # search_reloaded_admin()
 
 add_action('load-settings_page_search-reloaded', 'search_reloaded_admin');
-add_action('load-settings_page_search-reloaded', array('search_reloaded_admin', 'save_options'));
 
 if ( !function_exists('load_ysearch') ) :
 function load_ysearch() {

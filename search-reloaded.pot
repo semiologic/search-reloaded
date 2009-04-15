@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 4.0\n"
 "Report-Msgid-Bugs-To: https://tickets.semiologic.com\n"
-"POT-Creation-Date: 2009-04-05 00:02+0200\n"
+"POT-Creation-Date: 2009-04-15 15:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,19 +16,19 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: search-reloaded-admin.php:30
+#: search-reloaded-admin.php:33
 msgid "Settings saved."
 msgstr ""
 
-#: search-reloaded-admin.php:49
+#: search-reloaded-admin.php:52
 msgid "Search Reloaded Settings"
 msgstr ""
 
-#: search-reloaded-admin.php:57
+#: search-reloaded-admin.php:60
 msgid "Yahoo! BOSS AppID"
 msgstr ""
 
-#: search-reloaded-admin.php:63
+#: search-reloaded-admin.php:66
 msgid ""
 "This is the <a href=\"http://developer.yahoo.com/search/boss/\"><em>Build "
 "your Own Search Service</em></a> Application ID that you'll be using on this "
@@ -36,7 +36,7 @@ msgid ""
 "free</a> from Yahoo!."
 msgstr ""
 
-#: search-reloaded-admin.php:64
+#: search-reloaded-admin.php:67
 msgid ""
 "More often than not, a single AppID will be enough for all of your sites. In "
 "Yahoo's application registration form, enter the url of any of them as the "
@@ -47,21 +47,22 @@ msgid ""
 "latter."
 msgstr ""
 
-#: search-reloaded-admin.php:70
+#: search-reloaded-admin.php:73
 msgid "Site to Search"
 msgstr ""
 
-#: search-reloaded-admin.php:81
+#: search-reloaded-admin.php:84
 #, php-format
 msgid ""
-"Return search results from <em>%1$s</em> rather than from <em>%2$s</em>."
+"Return search results from this entire domain (<em>%s</em>) rather than from "
+"this WordPress installation only."
 msgstr ""
 
-#: search-reloaded-admin.php:88
+#: search-reloaded-admin.php:91
 msgid "Display Credits"
 msgstr ""
 
-#: search-reloaded-admin.php:99
+#: search-reloaded-admin.php:102
 msgid ""
 "Display <em>Powered by <a href=\"http://www.semiologic.com/software/search-"
 "reloaded/\">Search Reloaded</a></em> on search results pages. (Combine this "
@@ -69,7 +70,7 @@ msgid ""
 "\">Semiologic Affiliate plugin</a>.)"
 msgstr ""
 
-#: search-reloaded-admin.php:108
+#: search-reloaded-admin.php:111
 msgid "Save Changes"
 msgstr ""
 
