@@ -50,8 +50,8 @@ class search_reloaded {
 	function activate() {
 		if ( !class_exists('ysearch') ) {
 			include dirname(__FILE__) . '/ysearch/ysearch.php';
-			ysearch::activate();
 		}
+		ysearch::activate();
 	} # activate()
 	
 	
@@ -106,11 +106,12 @@ class search_reloaded {
 	 *
 	 * @return void
 	 **/
-
+	
 	function loop_start() {
 		static $did_search = false;
 		
-		if ( !is_search() || !in_the_loop() || is_feed() || $did_search ) return;
+		if ( !is_search() || !in_the_loop() || $did_search )
+			return;
 		
 		$did_search = true;
 		
@@ -119,7 +120,8 @@ class search_reloaded {
 		
 		$s = trim(stripslashes($_GET['s']));
 		
-		if ( !$s ) return;
+		if ( !$s )
+			return;
 		
 		global $wp_query;
 		if ( $wp_query->post_count ) // fast forward loop
@@ -158,12 +160,13 @@ class search_reloaded {
 		$res = ysearch::query($s, $start);
 		
 		global $wp_query;
-
+		
 		if ( $res === false ) {
 			search_reloaded::display_posts($wp_query->posts);
 		} else {
 			$obj = $res->attributes();
-			$wp_query->max_num_pages = intval(ceil($obj->totalhits / 10));
+			$max_num_pages = intval(ceil($obj->totalhits / 10));
+			$wp_query->max_num_pages = min($wp_query->max_num_pages, $max_num_pages);
 			search_reloaded::display_results($res);
 		}
 	} # loop_end()
@@ -227,6 +230,8 @@ class search_reloaded {
 	 **/
 
 	function display_results($resultset) {
+		global $wp_query;
+		
 		$options = search_reloaded::get_options();
 		
 		if ( $options['site_wide'] ) {
@@ -244,6 +249,8 @@ class search_reloaded {
 		
 		$first = $total ? ( $start + 1 ) : 0;
 		$last = $start + $count;
+		
+		$total = min($total, $wp_query->found_posts * 10);
 		
 		echo '<div class="post_list">' . "\n";
 		
@@ -311,7 +318,7 @@ class search_reloaded {
 
 	function init_options() {
 		$o = array(
-			'site_wide' => '',
+			'site_wide' => true,
 			'add_credits' => true,
 			);
 		
@@ -350,35 +357,36 @@ class search_reloaded {
 			return $site_domain;
 		
 		$site_domain = get_option('home');
-		$site_domain = preg_replace("|^[^/]+://(?:www\.)?|i", '', $site_domain);
-		$site_domain = preg_replace("|[/?#].*$|i", '', $site_domain);
+		$site_domain = parse_url($site_domain);
+		$site_domain = $site_domain['host'];
+		$site_domain = preg_replace("/^www\./i", '', $site_domain);
 		
+		# The following is not bullet proof, but it's good enough for a WP site
 		if ( $site_domain != 'localhost' && !preg_match("/\d+(\.\d+){3}/", $site_domain) ) {
-			$tlds = array('wattle.id.au', 'emu.id.au', 'csiro.au', 'name.tr', 'conf.au', 'info.tr', 'info.au', 'gov.au', 'k12.tr', 'lel.br', 'ltd.uk', 'mat.br', 'jor.br', 'med.br', 'net.hk', 'net.eg', 'net.cn', 'net.br', 'net.au', 'mus.br', 'mil.tr', 'mil.br', 'net.lu', 'inf.br', 'fnd.br', 'fot.br', 'fst.br', 'g12.br', 'gb.com', 'gb.net', 'gen.tr', 'ggf.br', 'gob.mx', 'gov.br', 'gov.cn', 'gov.hk', 'gov.tr', 'idv.tw', 'imb.br', 'ind.br', 'far.br', 'net.mx', 'se.com', 'rec.br', 'qsl.br', 'psi.br', 'psc.br', 'pro.br', 'ppg.br', 'pol.tr', 'se.net', 'slg.br', 'vet.br', 'uk.net', 'uk.com', 'tur.br', 'trd.br', 'tmp.br', 'tel.tr', 'srv.br', 'plc.uk', 'org.uk', 'ntr.br', 'not.br', 'nom.br', 'no.com', 'net.uk', 'net.tw', 'net.tr', 'net.ru', 'odo.br', 'oop.br', 'org.tw', 'org.tr', 'org.ru', 'org.lu', 'org.hk', 'org.cn', 'org.br', 'org.au', 'web.tr', 'eun.eg', 'zlg.br', 'cng.br', 'com.eg', 'bio.br', 'agr.br', 'biz.tr', 'cnt.br', 'art.br', 'com.hk', 'adv.br', 'cim.br', 'com.mx', 'arq.br', 'com.ru', 'com.tr', 'bmd.br', 'com.tw', 'adm.br', 'ecn.br', 'edu.br', 'etc.br', 'eng.br', 'esp.br', 'com.au', 'com.br', 'ato.br', 'com.cn', 'eti.br', 'edu.au', 'bel.tr', 'edu.tr', 'asn.au', 'jl.cn', 'mo.cn', 'sh.cn', 'nm.cn', 'js.cn', 'jx.cn', 'am.br', 'sc.cn', 'sn.cn', 'me.uk', 'co.jp', 'ne.jp', 'sx.cn', 'ln.cn', 'co.uk', 'co.at', 'sd.cn', 'tj.cn', 'cq.cn', 'qh.cn', 'gs.cn', 'gr.jp', 'dr.tr', 'ac.jp', 'hb.cn', 'ac.cn', 'gd.cn', 'pp.ru', 'xj.cn', 'xz.cn', 'yn.cn', 'av.tr', 'fm.br', 'fj.cn', 'zj.cn', 'gx.cn', 'gz.cn', 'ha.cn', 'ah.cn', 'nx.cn', 'tv.br', 'tw.cn', 'bj.cn', 'id.au', 'or.at', 'hn.cn', 'ad.jp', 'hl.cn', 'hk.cn', 'ac.uk', 'hi.cn', 'he.cn', 'or.jp', 'name', 'info', 'aero', 'com', 'net', 'org', 'biz', 'edu', 'int', 'mil', 'ua', 'st', 'tw', 'sg', 'uk', 'au', 'za', 'yu', 'ws', 'at', 'us', 'vg', 'as', 'va', 'tv', 'pt', 'si', 'sk', 'ag', 'sm', 'ca', 'su', 'al', 'am', 'tc', 'th', 'tm', 'ro', 'tn', 'to', 'ru', 'se', 'sh', 'eu', 'dk', 'ie', 'il', 'de', 'cz', 'cy', 'cx', 'is', 'it', 'jp', 'ke', 'kr', 'la', 'hu', 'hm', 'hk', 'fi', 'fj', 'fo', 'fr', 'es', 'gb', 'eg', 'ge', 'ee', 'gl', 'ac', 'gr', 'gs', 'li', 'lk', 'cd', 'nl', 'no', 'cc', 'by', 'br', 'nu', 'nz', 'bg', 'be', 'ba', 'az', 'pk', 'ch', 'ck', 'cl', 'lt', 'lu', 'lv', 'ma', 'mc', 'md', 'mk', 'mn', 'ms', 'mt', 'mx', 'dz', 'cn', 'pl');
-			
-			$site_len = strlen($site_domain);
-			
-			for ( $i = 0; $i < count($tlds); $i++ ) {
-				$tld = $tlds[$i];
-				$tld_len = strlen($tld);
-				
-				# drop stuff that's too short
-				if ( $site_len < $tld_len + 2 ) continue;
-				
-				# catch stuff like blahco.uk
-				if ( substr($site_domain, -1 * $tld_len - 1, 1) != '.' ) continue;
-				
-				# match?
-				if ( substr($site_domain, -1 * $tld_len) != $tld ) continue;
-				
-				# extract domain
-				$site_domain = substr($site_domain, 0, $site_len - $tld_len - 1);
-				$site_domain = explode('.', $site_domain);
-				$site_domain = array_pop($site_domain);
-				$site_domain = $site_domain . '.' . $tld;
+			if ( preg_match("/\.([^.]+)$/", $site_domain, $tld) ) {
+				$tld = end($tld);
+			} else {
+				$site_domain = false;
+				return false;
 			}
+			
+			$site_domain = substr($site_domain, 0, strlen($site_domain) - 1 - strlen($tld));
+			
+			if ( preg_match("/\.([^.]+)$/", $site_domain, $subtld) ) {
+				$subtld = end($subtld);
+				if ( strlen($subtld) <= 4 ) {
+					$site_domain = substr($site_domain, 0, strlen($site_domain) - 1 - strlen($subtld));
+					$site_domain = explode('.', $site_domain);
+					$site_domain = array_pop($site_domain);
+					$site_domain .= ".$subtld";
+				} else {
+					$site_domain = $subtld;
+				}
+			}
+			
+			$site_domain .= ".$tld";
 		}
-	
+		
 		return $site_domain;
 	} # get_domain()
 } # search_reloaded
