@@ -62,7 +62,7 @@ class search_reloaded_admin {
 			. '</th>' . "\n"
 			. '<td>' . "\n"
 			. '<input type="text" name="api_key" class="widefat"'
-				. ' value="' . attribute_escape($api_key) . '"'
+				. ' value="' . esc_attr($api_key) . '"'
 				. ' />'
 			. '<p>' . __('This is the <a href="http://developer.yahoo.com/search/boss/"><em>Build your Own Search Service</em></a> Application ID that you\'ll be using on this site. You can <a href="https://developer.yahoo.com/wsregapp/">get one for free</a> from Yahoo!.', 'search-reloaded') . '</p>' . "\n"
 			. '<p>' . __('More often than not, a single AppID will be enough for all of your sites. In Yahoo\'s application registration form, enter the url of any of them as the application\'s location, and paste the AppID that was assigned to you in the above field. Keep Yahoo\'s <a href="http://developer.yahoo.com/search/boss/fees.html">fee structure</a> in mind if you\'ve heavily searched sites, however. In that case, you may want to get a separate AppID for each of latter.', 'search-reloaded') . '</p>' . "\n"
@@ -109,7 +109,7 @@ class search_reloaded_admin {
 
 		echo '<p class="submit">'
 			. '<input type="submit"'
-				. ' value="' . attribute_escape(__('Save Changes', 'search-reloaded')) . '"'
+				. ' value="' . esc_attr(__('Save Changes', 'search-reloaded')) . '"'
 				. ' />'
 			. '</p>' . "\n";
 		
