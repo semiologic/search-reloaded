@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 4.0\n"
 "Report-Msgid-Bugs-To: https://tickets.semiologic.com\n"
-"POT-Creation-Date: 2009-04-15 15:26+0200\n"
+"POT-Creation-Date: 2009-05-24 18:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,19 +16,19 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: search-reloaded-admin.php:33
+#: search-reloaded-admin.php:34
 msgid "Settings saved."
 msgstr ""
 
-#: search-reloaded-admin.php:52
+#: search-reloaded-admin.php:53
 msgid "Search Reloaded Settings"
 msgstr ""
 
-#: search-reloaded-admin.php:60
+#: search-reloaded-admin.php:61
 msgid "Yahoo! BOSS AppID"
 msgstr ""
 
-#: search-reloaded-admin.php:66
+#: search-reloaded-admin.php:67
 msgid ""
 "This is the <a href=\"http://developer.yahoo.com/search/boss/\"><em>Build "
 "your Own Search Service</em></a> Application ID that you'll be using on this "
@@ -36,7 +36,7 @@ msgid ""
 "free</a> from Yahoo!."
 msgstr ""
 
-#: search-reloaded-admin.php:67
+#: search-reloaded-admin.php:68
 msgid ""
 "More often than not, a single AppID will be enough for all of your sites. In "
 "Yahoo's application registration form, enter the url of any of them as the "
@@ -47,22 +47,22 @@ msgid ""
 "latter."
 msgstr ""
 
-#: search-reloaded-admin.php:73
+#: search-reloaded-admin.php:74
 msgid "Site to Search"
 msgstr ""
 
-#: search-reloaded-admin.php:84
+#: search-reloaded-admin.php:85
 #, php-format
 msgid ""
 "Return search results from this entire domain (<em>%s</em>) rather than from "
 "this WordPress installation only."
 msgstr ""
 
-#: search-reloaded-admin.php:91
+#: search-reloaded-admin.php:92
 msgid "Display Credits"
 msgstr ""
 
-#: search-reloaded-admin.php:102
+#: search-reloaded-admin.php:103
 msgid ""
 "Display <em>Powered by <a href=\"http://www.semiologic.com/software/search-"
 "reloaded/\">Search Reloaded</a></em> on search results pages. (Combine this "
@@ -70,7 +70,7 @@ msgid ""
 "\">Semiologic Affiliate plugin</a>.)"
 msgstr ""
 
-#: search-reloaded-admin.php:111
+#: search-reloaded-admin.php:112
 msgid "Save Changes"
 msgstr ""
 
@@ -97,14 +97,14 @@ msgid ""
 "Reloaded</a> and configure it as needed."
 msgstr ""
 
-#: search-reloaded.php:194 search-reloaded.php:253
+#: search-reloaded.php:197 search-reloaded.php:261
 #, php-format
-msgid "%d-%d of %d results"
+msgid "%1$d-%2$d of %3$d results"
 msgstr ""
 
-#: search-reloaded.php:251
+#: search-reloaded.php:259
 #, php-format
 msgid ""
-"%d-%d of %d results &bull; Powered by <a href=\"http://www.semiologic.com/"
-"software/search-reloaded/\">Search Reloaded</a>"
+"%1$d-%2$d of %3$d results &bull; Powered by <a href=\"http://www.semiologic."
+"com/software/search-reloaded/\">Search Reloaded</a>"
 msgstr ""

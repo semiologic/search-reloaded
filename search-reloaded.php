@@ -3,7 +3,7 @@
 Plugin Name: Search Reloaded
 Plugin URI: http://www.semiologic.com/software/search-reloaded/
 Description: Replaces the default WordPress search engine with Yahoo! search.
-Version: 4.0 beta
+Version: 4.0 RC
 Author: Denis de Bernardy
 Author URI: http://www.getsemiologic.com
 Text Domain: search-reloaded-info
@@ -50,9 +50,7 @@ class search_reloaded {
 	 **/
 
 	function activate() {
-		if ( !class_exists('ysearch') ) {
-			include dirname(__FILE__) . '/ysearch/ysearch.php';
-		}
+		load_ysearch();
 		ysearch::activate();
 	} # activate()
 	
@@ -117,8 +115,7 @@ class search_reloaded {
 		
 		$did_search = true;
 		
-		if ( !class_exists('ysearch') )
-			include dirname(__FILE__) . '/ysearch/ysearch.php';
+		load_ysearch();
 		
 		$s = trim(stripslashes($_GET['s']));
 		
@@ -197,7 +194,7 @@ class search_reloaded {
 		echo '<div class="post_list">' . "\n";
 		
 		echo '<p class="search_count">'
-			. sprintf(__('%d-%d of %d results', 'search-reloaded'), $first, $last, $total)
+			. sprintf(__('%1$d-%2$d of %3$d results', 'search-reloaded'), $first, $last, $total)
 			. '</p>' . "\n";
 		
 		echo '<ul>' . "\n";
@@ -259,9 +256,9 @@ class search_reloaded {
 		echo '<p class="search_count">';
 		
 		if ( $options['add_credits'] ) {
-			echo sprintf(__('%d-%d of %d results &bull; Powered by <a href="http://www.semiologic.com/software/search-reloaded/">Search Reloaded</a>', 'search-reloaded'), $first, $last, $total);
+			echo sprintf(__('%1$d-%2$d of %3$d results &bull; Powered by <a href="http://www.semiologic.com/software/search-reloaded/">Search Reloaded</a>', 'search-reloaded'), $first, $last, $total);
 		} else {
-			echo sprintf(__('%d-%d of %d results', 'search-reloaded'), $first, $last, $total);
+			echo sprintf(__('%1$d-%2$d of %3$d results', 'search-reloaded'), $first, $last, $total);
 		}
 		
 		echo '</p>' . "\n";
@@ -335,11 +332,6 @@ class search_reloaded {
 			
 			delete_option('search_reloaded_version');
 			delete_option('search_reloaded_installed');
-			
-			if ( !class_exists('ysearch') ) {
-				include dirname(__FILE__) . '/ysearch/ysearch.php';
-				ysearch::activate();
-			}
 		}
 		
 		return $o;
@@ -403,7 +395,8 @@ add_action('load-settings_page_search-reloaded', 'search_reloaded_admin');
 
 if ( !function_exists('load_ysearch') ) :
 function load_ysearch() {
-	include_once dirname(__FILE__) . '/ysearch/ysearch.php';
+	if ( !class_exists('ysearch') )
+		include dirname(__FILE__) . '/ysearch/ysearch.php';
 } # load_ysearch()
 endif;
 ?>
