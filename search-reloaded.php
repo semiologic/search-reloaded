@@ -263,25 +263,28 @@ class search_reloaded {
 		
 		echo '</p>' . "\n";
 		
-		echo '<ul>' . "\n";
-		
-		foreach ( $resultset->children() as $result ) {
-			echo '<li class="search_result">' . "\n"
-				. '<h3 class="search_title">'
-				. '<a href="' . esc_url($result->clickurl) . '">' . $result->title . '</a>'
-				. '</h3>' . "\n";
-			
-			echo '<p class="search_content">' . str_replace($find, $repl, $result->abstract) . '</p>' . "\n";
-			
-			echo '<p class="search_url">'
-				. esc_url(user_trailingslashit(str_replace($find, $repl, $result->dispurl)))
-				. '</p>' . "\n";
-			
-			echo '</li>' . "\n";
+		if ( $total ) {
+			echo '<ul>' . "\n";
+
+			foreach ( $resultset->children() as $result ) {
+				echo '<li class="search_result">' . "\n"
+					. '<h3 class="search_title">'
+					. '<a href="' . esc_url($result->clickurl) . '">' . $result->title . '</a>'
+					. '</h3>' . "\n";
+
+				echo '<p class="search_content">' . str_replace($find, $repl, $result->abstract) . '</p>' . "\n";
+
+				echo '<p class="search_url">'
+					. esc_url(user_trailingslashit(str_replace($find, $repl, $result->dispurl)))
+					. '</p>' . "\n";
+
+				echo '</li>' . "\n";
+			}
+
+			echo '</ul>' . "\n";
 		}
 		
-		echo '</ul>' . "\n"
-			. '</div>' . "\n"
+		echo '</div>' . "\n"
 			. '<div class="entry_bottom"><div class="hidden"></div></div>' . "\n"
 			. '</div>' . "\n";
 	} # display_results()
