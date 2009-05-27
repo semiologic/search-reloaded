@@ -104,16 +104,15 @@ class search_reloaded {
 	/**
 	 * loop_start()
 	 *
+	 * @param object &$wp_query
 	 * @return void
 	 **/
 	
-	function loop_start() {
-		static $did_search = false;
-		
-		if ( !is_search() || !in_the_loop() || $did_search )
+	function loop_start(&$wp_query) {
+		global $wp_the_query;
+		dump('test');die;
+		if ( $wp_the_query !== $wp_query || !is_search() )
 			return;
-		
-		$did_search = true;
 		
 		load_ysearch();
 		
@@ -122,7 +121,6 @@ class search_reloaded {
 		if ( !$s )
 			return;
 		
-		global $wp_query;
 		if ( $wp_query->post_count ) // fast forward loop
 			$wp_query->current_post = $wp_query->post_count - 1;
 		
@@ -135,14 +133,20 @@ class search_reloaded {
 	/**
 	 * loop_end()
 	 *
+	 * @param object &$wp_query
 	 * @return void
 	 **/
 
-	function loop_end() {
+	function loop_end(&$wp_query) {
+		global $wp_the_query;
+		
+		if ( $wp_the_query !== $wp_query )
+			return;
+		
 		ob_get_clean();
 		remove_action('loop_end', array('search_reloaded', 'loop_end'));
+		add_action('loop_start', array('search_reloaded', 'loop_start'));
 		
-		global $wp_query;
 		$start = intval($wp_query->query['paged']) ? ( 10 * ( intval($wp_query->query['paged']) - 1 ) ) : 0;
 		
 		# build search query
@@ -157,8 +161,6 @@ class search_reloaded {
 		}
 		
 		$res = ysearch::query($s, $start);
-		
-		global $wp_query;
 		
 		if ( $res === false ) {
 			search_reloaded::display_posts($wp_query->posts);
@@ -191,7 +193,9 @@ class search_reloaded {
 		$first = $total ? ( $start + 1 ) : 0;
 		$last = $start + $count;
 		
-		echo '<div class="post_list">' . "\n";
+		echo '<div class="entry">' . "\n"
+			. '<div class="entry_top"><div class="hidden"></div></div>' . "\n"
+			. '<div class="post_list">' . "\n";
 		
 		echo '<p class="search_count">'
 			. sprintf(__('%1$d-%2$d of %3$d results', 'search-reloaded'), $first, $last, $total)
@@ -204,7 +208,7 @@ class search_reloaded {
 			
 			echo '<li class="search_result">' . "\n"
 				. '<h3 class="search_title">'
-				. '<a href="' . get_permalink() . '">' . get_the_title() . '</a>'
+				. '<a href="' . esc_url(get_permalink()) . '">' . get_the_title() . '</a>'
 				. '</h3>' . "\n";
 			
 			echo '<p class="search_content">' . apply_filters('the_excerpt', get_the_excerpt())  . '</p>' . "\n";
@@ -217,6 +221,8 @@ class search_reloaded {
 		}
 		
 		echo '</ul>' . "\n"
+			. '</div>' . "\n"
+			. '<div class="entry_bottom"><div class="hidden"></div></div>' . "\n"
 			. '</div>' . "\n";
 	} # display_posts()
 	
@@ -251,7 +257,9 @@ class search_reloaded {
 		
 		$total = min($total, $wp_query->found_posts * 10);
 		
-		echo '<div class="post_list">' . "\n";
+		echo '<div class="entry">' . "\n"
+			. '<div class="entry_top"><div class="hidden"></div></div>' . "\n"
+			. '<div class="post_list">' . "\n";
 		
 		echo '<p class="search_count">';
 		
@@ -268,19 +276,21 @@ class search_reloaded {
 		foreach ( $resultset->children() as $result ) {
 			echo '<li class="search_result">' . "\n"
 				. '<h3 class="search_title">'
-				. '<a href="' . $result->clickurl . '">' . $result->title . '</a>'
+				. '<a href="' . esc_url($result->clickurl) . '">' . $result->title . '</a>'
 				. '</h3>' . "\n";
 			
 			echo '<p class="search_content">' . str_replace($find, $repl, $result->abstract) . '</p>' . "\n";
 			
 			echo '<p class="search_url">'
-				. user_trailingslashit(str_replace($find, $repl, $result->dispurl))
+				. esc_url(user_trailingslashit(str_replace($find, $repl, $result->dispurl)))
 				. '</p>' . "\n";
 			
 			echo '</li>' . "\n";
 		}
 		
 		echo '</ul>' . "\n"
+			. '</div>' . "\n"
+			. '<div class="entry_bottom"><div class="hidden"></div></div>' . "\n"
 			. '</div>' . "\n";
 	} # display_results()
 	
