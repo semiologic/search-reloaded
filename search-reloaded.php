@@ -110,19 +110,11 @@ class search_reloaded {
 	
 	function loop_start(&$wp_query) {
 		global $wp_the_query;
-		dump('test');die;
-		if ( $wp_the_query !== $wp_query || !is_search() )
-			return;
-		
-		load_ysearch();
 		
 		$s = trim(stripslashes($_GET['s']));
 		
-		if ( !$s )
+		if ( $wp_the_query !== $wp_query || !is_search() || !$s )
 			return;
-		
-		if ( $wp_query->post_count ) // fast forward loop
-			$wp_query->current_post = $wp_query->post_count - 1;
 		
 		remove_action('loop_start', array('search_reloaded', 'loop_start'));
 		add_action('loop_end', array('search_reloaded', 'loop_end'));
@@ -145,14 +137,13 @@ class search_reloaded {
 		
 		ob_get_clean();
 		remove_action('loop_end', array('search_reloaded', 'loop_end'));
-		add_action('loop_start', array('search_reloaded', 'loop_start'));
 		
 		$start = intval($wp_query->query['paged']) ? ( 10 * ( intval($wp_query->query['paged']) - 1 ) ) : 0;
 		
 		# build search query
 		$o = search_reloaded::get_options();
 		
-		$s = stripslashes($_GET['s']);
+		$s = trim(stripslashes($_GET['s']));
 		
 		if ( $o['site_wide'] ) {
 			$s .= ' site:' . search_reloaded::get_domain();
@@ -160,6 +151,7 @@ class search_reloaded {
 			$s .= ' site:' . get_option('home');
 		}
 		
+		load_ysearch();
 		$res = ysearch::query($s, $start);
 		
 		if ( $res === false ) {
