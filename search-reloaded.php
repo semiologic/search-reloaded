@@ -34,7 +34,7 @@ $o = search_reloaded::get_options();
 register_activation_hook(__FILE__, array('search_reloaded', 'activate'));
 add_action('admin_menu', array('search_reloaded', 'admin_menu'));
 
-if ( !extension_loaded('simplexml') || !class_exists('WP_Widget') || !$o['api_key'] ) {
+if ( !extension_loaded('simplexml') || !function_exists('get_transient') || !$o['api_key'] ) {
 	add_action('admin_notices', array('search_reloaded', 'admin_notices'));
 } elseif ( !is_admin() ) {
 	add_action('loop_start', array('search_reloaded', 'loop_start'));
@@ -85,7 +85,7 @@ class search_reloaded {
 				. __('Search Reloaded requires the Simple XML extension to query Yahoo!\'s web services. Please contact your host and request that your server be configured accordingly.', 'search-reloaded')
 				. '</p>'
 				. '</div>' . "\n";
-		} elseif ( !class_exists('WP_Widget') ) {
+		} elseif ( !function_exists('get_transient') ) {
 			echo '<div class="error">'
 				. '<p>'
 				. __('Search Reloaded requires WordPress 2.8 or later. Please upgrade your site.', 'search-reloaded')
