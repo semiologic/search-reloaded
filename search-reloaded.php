@@ -116,9 +116,14 @@ class search_reloaded {
 		if ( $wp_the_query !== $wp_query || !is_search() || !$s )
 			return;
 		
-		remove_action('loop_start', array('search_reloaded', 'loop_start'));
+		static $done = false;
+		
+		if ( $done )
+			return;
+		
 		add_action('loop_end', array('search_reloaded', 'loop_end'));
 		ob_start();
+		$done = true;
 	} # loop_start()
 	
 	
@@ -135,8 +140,13 @@ class search_reloaded {
 		if ( $wp_the_query !== $wp_query )
 			return;
 		
+		static $done = false;
+		
+		if ( $done )
+			return;
+		
 		ob_get_clean();
-		remove_action('loop_end', array('search_reloaded', 'loop_end'));
+		$done = true;
 		
 		$start = intval($wp_query->query['paged']) ? ( 10 * ( intval($wp_query->query['paged']) - 1 ) ) : 0;
 		
