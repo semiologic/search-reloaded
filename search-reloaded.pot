@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 4.0\n"
 "Report-Msgid-Bugs-To: https://tickets.semiologic.com\n"
-"POT-Creation-Date: 2009-05-24 18:40+0200\n"
+"POT-Creation-Date: 2009-06-23 17:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,12 +97,12 @@ msgid ""
 "Reloaded</a> and configure it as needed."
 msgstr ""
 
-#: search-reloaded.php:197 search-reloaded.php:261
+#: search-reloaded.php:203 search-reloaded.php:271
 #, php-format
 msgid "%1$d-%2$d of %3$d results"
 msgstr ""
 
-#: search-reloaded.php:259
+#: search-reloaded.php:269
 #, php-format
 msgid ""
 "%1$d-%2$d of %3$d results &bull; Powered by <a href=\"http://www.semiologic."

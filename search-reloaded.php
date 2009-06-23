@@ -6,7 +6,7 @@ Description: Replaces the default WordPress search engine with Yahoo! search.
 Version: 4.0 RC
 Author: Denis de Bernardy
 Author URI: http://www.getsemiologic.com
-Text Domain: search-reloaded-info
+Text Domain: search-reloaded
 Domain Path: /lang
 */
 
