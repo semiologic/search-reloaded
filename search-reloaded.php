@@ -29,6 +29,7 @@ load_plugin_textdomain('search-reloaded', false, dirname(plugin_basename(__FILE_
  * @package Search Reloaded
  **/
 
+add_option('ysearch', '');
 $o = search_reloaded::get_options();
 
 register_activation_hook(__FILE__, array('search_reloaded', 'activate'));
