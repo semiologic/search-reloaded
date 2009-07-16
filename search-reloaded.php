@@ -80,7 +80,9 @@ class search_reloaded {
 	 **/
 
 	function admin_notices() {
-		if ( !extension_loaded('simplexml') ) {
+		if ( !current_user_can('manage_options') ) {
+			return;
+		} elseif ( !extension_loaded('simplexml') ) {
 			echo '<div class="error">'
 				. '<p>'
 				. __('Search Reloaded requires the Simple XML extension to query Yahoo!\'s web services. Please contact your host and request that your server be configured accordingly.', 'search-reloaded')
@@ -95,7 +97,7 @@ class search_reloaded {
 		} elseif ( !$o['api_key'] ) {
 			echo '<div class="error">'
 				. '<p>'
-				. __('Search Reloaded is almost ready to be used on your site. Please browse <a href="options-general.php?page=search-reloaded">Settings / Search Reloaded</a> and configure it as needed.', 'seach-reloaded')
+				. __('Search Reloaded is almost ready. Please configure it under <a href="options-general.php?page=search-reloaded">Settings / Search Reloaded</a>.', 'seach-reloaded')
 				. '</p>'
 				. '</div>' . "\n";
 		}

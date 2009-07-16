@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 4.0\n"
 "Report-Msgid-Bugs-To: https://tickets.semiologic.com\n"
-"POT-Creation-Date: 2009-07-15 22:52+0200\n"
+"POT-Creation-Date: 2009-07-16 12:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -82,31 +82,30 @@ msgstr ""
 msgid "Replaces the default WordPress search engine with Yahoo! search."
 msgstr ""
 
-#: search-reloaded.php:86
+#: search-reloaded.php:88
 msgid ""
 "Search Reloaded requires the Simple XML extension to query Yahoo!'s web "
 "services. Please contact your host and request that your server be "
 "configured accordingly."
 msgstr ""
 
-#: search-reloaded.php:92
+#: search-reloaded.php:94
 msgid ""
 "Search Reloaded requires WordPress 2.8 or later. Please upgrade your site."
 msgstr ""
 
-#: search-reloaded.php:98
+#: search-reloaded.php:100
 msgid ""
-"Search Reloaded is almost ready to be used on your site. Please browse <a "
-"href=\"options-general.php?page=search-reloaded\">Settings / Search "
-"Reloaded</a> and configure it as needed."
+"Search Reloaded is almost ready. Please configure it under <a href=\"options-"
+"general.php?page=search-reloaded\">Settings / Search Reloaded</a>."
 msgstr ""
 
-#: search-reloaded.php:204 search-reloaded.php:272
+#: search-reloaded.php:206 search-reloaded.php:274
 #, php-format
 msgid "%1$d-%2$d of %3$d results"
 msgstr ""
 
-#: search-reloaded.php:270
+#: search-reloaded.php:272
 #, php-format
 msgid ""
 "%1$d-%2$d of %3$d results &bull; Powered by <a href=\"%4$s\">Search "
