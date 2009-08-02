@@ -5,8 +5,6 @@
  * @package Search Reloaded
  **/
 
-add_action('settings_page_search-reloaded', array('search_reloaded_admin', 'save_options'), 0);
-
 class search_reloaded_admin {
 	/**
 	 * save_options()
@@ -117,4 +115,6 @@ class search_reloaded_admin {
 			. '</div>' . "\n";
 	} # edit_options()
 } # search_reloaded_admin
+
+add_action('settings_page_search-reloaded', array('search_reloaded_admin', 'save_options'), 0);
 ?>

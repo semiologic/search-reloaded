@@ -29,20 +29,6 @@ load_plugin_textdomain('search-reloaded', false, dirname(plugin_basename(__FILE_
  * @package Search Reloaded
  **/
 
-add_option('ysearch', '');
-$o = search_reloaded::get_options();
-
-register_activation_hook(__FILE__, array('search_reloaded', 'activate'));
-add_action('admin_menu', array('search_reloaded', 'admin_menu'));
-
-if ( !extension_loaded('simplexml') || !function_exists('get_transient') || !$o['api_key'] ) {
-	add_action('admin_notices', array('search_reloaded', 'admin_notices'));
-} elseif ( !is_admin() ) {
-	add_action('loop_start', array('search_reloaded', 'loop_start'));
-}
-
-unset($o);
-
 class search_reloaded {
 	/**
 	 * activate()
@@ -417,4 +403,19 @@ function load_ysearch() {
 		include dirname(__FILE__) . '/ysearch/ysearch.php';
 } # load_ysearch()
 endif;
+
+
+add_option('ysearch', '');
+$o = search_reloaded::get_options();
+
+register_activation_hook(__FILE__, array('search_reloaded', 'activate'));
+add_action('admin_menu', array('search_reloaded', 'admin_menu'));
+
+if ( !extension_loaded('simplexml') || !function_exists('get_transient') || !$o['api_key'] ) {
+	add_action('admin_notices', array('search_reloaded', 'admin_notices'));
+} elseif ( !is_admin() ) {
+	add_action('loop_start', array('search_reloaded', 'loop_start'));
+}
+
+unset($o);
 ?>
