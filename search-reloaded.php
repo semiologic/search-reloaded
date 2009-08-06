@@ -37,6 +37,9 @@ class search_reloaded {
 	 **/
 
 	function activate() {
+		if ( !extension_loaded('simplexml') )
+			return;
+		
 		load_ysearch();
 		ysearch::activate();
 	} # activate()
@@ -391,6 +394,9 @@ class search_reloaded {
 
 
 function search_reloaded_admin() {
+	if ( !extension_loaded('simplexml') )
+		return;
+	
 	include_once dirname(__FILE__) . '/search-reloaded-admin.php';
 	remove_action('admin_notices', array('search_reloaded', 'admin_notices'));
 } # search_reloaded_admin()
