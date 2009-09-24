@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 4.0\n"
+"Project-Id-Version: 4.0.1\n"
 "Report-Msgid-Bugs-To: https://tickets.semiologic.com\n"
-"POT-Creation-Date: 2009-09-16 17:01+0200\n"
+"POT-Creation-Date: 2009-09-24 15:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -100,12 +100,12 @@ msgid ""
 "general.php?page=search-reloaded\">Settings / Search Reloaded</a>."
 msgstr ""
 
-#: search-reloaded.php:195 search-reloaded.php:263
+#: search-reloaded.php:195 search-reloaded.php:255
 #, php-format
 msgid "%1$d-%2$d of %3$d results"
 msgstr ""
 
-#: search-reloaded.php:261
+#: search-reloaded.php:253
 #, php-format
 msgid ""
 "%1$d-%2$d of %3$d results &bull; Powered by <a href=\"%4$s\">Search "
