@@ -3,7 +3,7 @@
 Plugin Name: Search Reloaded
 Plugin URI: http://www.semiologic.com/software/search-reloaded/
 Description: Replaces the default WordPress search engine with Yahoo! search.
-Version: 4.0
+Version: 4.0.1
 Author: Denis de Bernardy
 Author URI: http://www.getsemiologic.com
 Text Domain: search-reloaded
@@ -202,13 +202,13 @@ class search_reloaded {
 			
 			echo '<li class="search_result">' . "\n"
 				. '<h3 class="search_title">'
-				. '<a href="' . esc_url(get_permalink()) . '">' . get_the_title() . '</a>'
+				. '<a href="' . esc_url(apply_filters('the_permalink', get_permalink())) . '">' . get_the_title() . '</a>'
 				. '</h3>' . "\n";
 			
 			echo '<p class="search_content">' . apply_filters('the_excerpt', get_the_excerpt())  . '</p>' . "\n";
 			
 			echo '<p class="search_url">'
-				. preg_replace("#https?://#", '', get_permalink())
+				. preg_replace("#https?://#", '', apply_filters('the_permalink', get_permalink()))
 				. '</p>' . "\n";
 			
 			echo '</li>' . "\n";
@@ -232,14 +232,6 @@ class search_reloaded {
 		global $wp_query;
 		
 		$options = search_reloaded::get_options();
-		
-		if ( $options['site_wide'] ) {
-			$repl = search_reloaded::get_domain();
-		} else {
-			$repl = get_option('home');
-		}
-		
-		$find = "<b>$repl</b>";
 		
 		$obj = $resultset->attributes();
 		$start = intval($obj->start);
@@ -266,6 +258,8 @@ class search_reloaded {
 		echo '</p>' . "\n";
 		
 		if ( $total ) {
+			$has_permalinks = get_option('permalink_structure');
+			
 			echo '<ul>' . "\n";
 
 			foreach ( $resultset->children() as $result ) {
@@ -274,10 +268,16 @@ class search_reloaded {
 					. '<a href="' . esc_url($result->clickurl) . '">' . $result->title . '</a>'
 					. '</h3>' . "\n";
 
-				echo '<p class="search_content">' . str_replace($find, $repl, $result->abstract) . '</p>' . "\n";
-
+				echo '<p class="search_content">' . $result->abstract . '</p>' . "\n";
+				
+				# strip bold from site domain
+				$dispurl = preg_replace("|^([^/]*)<b>([^/]+)</b>([^/]*)|", "$1$2$3", $result->dispurl);
+				
 				echo '<p class="search_url">'
-					. esc_url(user_trailingslashit(str_replace($find, $repl, $result->dispurl)))
+					. ( $has_permalinks
+						? user_trailingslashit($dispurl)
+						: $dispurl
+						)
 					. '</p>' . "\n";
 
 				echo '</li>' . "\n";
@@ -361,7 +361,7 @@ class search_reloaded {
 		$site_domain = parse_url($site_domain);
 		$site_domain = $site_domain['host'];
 		$site_domain = preg_replace("/^www\./i", '', $site_domain);
-		
+		$site_domain = 'semiologic.com';
 		# The following is not bullet proof, but it's good enough for a WP site
 		if ( $site_domain != 'localhost' && !preg_match("/\d+(\.\d+){3}/", $site_domain) ) {
 			if ( preg_match("/\.([^.]+)$/", $site_domain, $tld) ) {
@@ -385,7 +385,7 @@ class search_reloaded {
 				}
 			}
 			
-			$site_domain .= ".$tld";
+			$site_domain = ".$site_domain.$tld";
 		}
 		
 		return $site_domain;
