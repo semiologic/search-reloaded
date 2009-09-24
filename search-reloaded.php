@@ -361,7 +361,7 @@ class search_reloaded {
 		$site_domain = parse_url($site_domain);
 		$site_domain = $site_domain['host'];
 		$site_domain = preg_replace("/^www\./i", '', $site_domain);
-		$site_domain = 'semiologic.com';
+		
 		# The following is not bullet proof, but it's good enough for a WP site
 		if ( $site_domain != 'localhost' && !preg_match("/\d+(\.\d+){3}/", $site_domain) ) {
 			if ( preg_match("/\.([^.]+)$/", $site_domain, $tld) ) {
