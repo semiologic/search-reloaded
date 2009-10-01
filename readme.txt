@@ -27,6 +27,10 @@ The [Semiologic forum](http://forum.semiologic.com) is the best place to report 
 
 == Change Log ==
 
+= 4.0.2 =
+
+- Caption tweak to make the "configure me" prompt more user-friendly
+
 = 4.0.1 =
 
 - Fix cache on repeat-queries

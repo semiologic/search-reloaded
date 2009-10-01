@@ -3,7 +3,7 @@
 Plugin Name: Search Reloaded
 Plugin URI: http://www.semiologic.com/software/search-reloaded/
 Description: Replaces the default WordPress search engine with Yahoo! search.
-Version: 4.0.1
+Version: 4.0.2
 Author: Denis de Bernardy
 Author URI: http://www.getsemiologic.com
 Text Domain: search-reloaded
@@ -86,7 +86,7 @@ class search_reloaded {
 		} elseif ( !$o['api_key'] ) {
 			echo '<div class="error">'
 				. '<p>'
-				. __('Search Reloaded is almost ready. Please configure it under <a href="options-general.php?page=search-reloaded">Settings / Search Reloaded</a>.', 'seach-reloaded')
+				. __('The Search Reloaded plugin is almost ready. Please configure it under <a href="options-general.php?page=search-reloaded">Settings / Search Reloaded</a>. This will allow you to use Yahoo\'s search API in place of WordPress to search your site.', 'seach-reloaded')
 				. '</p>'
 				. '</div>' . "\n";
 		}
