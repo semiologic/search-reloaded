@@ -3,7 +3,7 @@
 Plugin Name: Search Reloaded
 Plugin URI: http://www.semiologic.com/software/search-reloaded/
 Description: Replaces the default WordPress search engine with Yahoo! search.
-Version: 4.0.2
+Version: 4.0.3
 Author: Denis de Bernardy
 Author URI: http://www.getsemiologic.com
 Text Domain: search-reloaded
@@ -205,7 +205,7 @@ class search_reloaded {
 				. '<a href="' . esc_url(apply_filters('the_permalink', get_permalink())) . '">' . get_the_title() . '</a>'
 				. '</h3>' . "\n";
 			
-			echo '<p class="search_content">' . apply_filters('the_excerpt', get_the_excerpt())  . '</p>' . "\n";
+			echo '<div class="search_content">' . apply_filters('the_excerpt', get_the_excerpt())  . '</div>' . "\n";
 			
 			echo '<p class="search_url">'
 				. preg_replace("#https?://#", '', apply_filters('the_permalink', get_permalink()))
@@ -268,7 +268,7 @@ class search_reloaded {
 					. '<a href="' . esc_url($result->clickurl) . '">' . $result->title . '</a>'
 					. '</h3>' . "\n";
 
-				echo '<p class="search_content">' . $result->abstract . '</p>' . "\n";
+				echo '<div class="search_content">' . $result->abstract . '</div>' . "\n";
 				
 				# strip bold from site domain
 				$dispurl = preg_replace("|^([^/]*)<b>([^/]+)</b>([^/]*)|", "$1$2$3", $result->dispurl);
