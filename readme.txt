@@ -27,6 +27,10 @@ The [Semiologic forum](http://forum.semiologic.com) is the best place to report 
 
 == Change Log ==
 
+= 4.0.4 =
+
+- Avoid using broken WP functions
+
 = 4.0.3 =
 
 - Fix an HTML Validation issue when the plugin is combined with Fancy Excerpts
