@@ -103,7 +103,7 @@ class search_reloaded {
 	function loop_start(&$wp_query) {
 		global $wp_the_query;
 		
-		$s = trim(stripslashes($_GET['s']));
+		$s = isset($_GET['s']) ? trim(stripslashes($_GET['s'])) : '';
 		
 		if ( $wp_the_query !== $wp_query || !is_search() || !$s )
 			return;
