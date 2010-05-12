@@ -19,12 +19,13 @@ class search_reloaded_admin {
 		check_admin_referer('search_reloaded');
 		
 		$api_key = stripslashes($_POST['api_key']);
-		$site_wide = isset($_POST['site_wide']);
+		$site_wide = isset($_POST['site_wide']) &&
+			!( function_exists('is_multisite') && is_multisite() );
 		$add_credits = isset($_POST['add_credits']);
 		
 		$options = compact('site_wide', 'add_credits');
-		update_option('search_reloaded', $options);
-		update_option('ysearch', $api_key);
+		update_site_option('search_reloaded', $options);
+		update_site_option('ysearch', $api_key);
 		
 		echo '<div class="updated fade">' . "\n"
 			. '<p>'
@@ -74,8 +75,12 @@ class search_reloaded_admin {
 			. '<td>' . "\n"
 			. '<label>'
 			. '<input name="site_wide" type="checkbox"'
-				. ( $site_wide
+				. ( $site_wide && !( function_exists('is_multisite') && is_multisite() )
 					? ' checked="checked"'
+					: ''
+					)
+				. ( function_exists('is_multisite') && is_multisite()
+					? ' disabled="disabled"'
 					: ''
 					)
 				. ' />'

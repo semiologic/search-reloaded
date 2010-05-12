@@ -3,7 +3,7 @@
 Plugin Name: Search Reloaded
 Plugin URI: http://www.semiologic.com/software/search-reloaded/
 Description: Replaces the default WordPress search engine with Yahoo! search.
-Version: 4.0.4
+Version: 4.1 RC
 Author: Denis de Bernardy
 Author URI: http://www.getsemiologic.com
 Text Domain: search-reloaded
@@ -52,6 +52,9 @@ class search_reloaded {
 	 **/
 
 	function admin_menu() {
+		if ( function_exists('is_super_admin') && !is_super_admin() )
+			return;
+		
 		add_options_page(
 			__('Search Reloaded', 'search-reloaded'),
 			__('Search Reloaded', 'search-reloaded'),
@@ -69,7 +72,10 @@ class search_reloaded {
 	 **/
 
 	function admin_notices() {
-		if ( !current_user_can('manage_options') ) {
+		$o = search_reloaded::get_options();
+		
+		if ( !current_user_can('manage_options') ||
+			function_exists('is_super_admin') && !is_super_admin() ) {
 			return;
 		} elseif ( !extension_loaded('simplexml') ) {
 			echo '<div class="error">'
@@ -304,13 +310,15 @@ class search_reloaded {
 		if ( isset($o) && !is_admin() )
 			return $o;
 		
-		$o = get_option('search_reloaded');
+		$o = get_site_option('search_reloaded');
 		
 		if ( $o === false )
 			$o = search_reloaded::init_options();
 		
-		$api_key = get_option('ysearch');
+		$api_key = get_site_option('ysearch');
 		$o['api_key'] = $api_key;
+		
+		$o['site_wide'] &= !( function_exists('is_multisite') && is_multisite() );
 		
 		return $o;
 	} # get_options()
@@ -324,11 +332,11 @@ class search_reloaded {
 
 	function init_options() {
 		$o = array(
-			'site_wide' => true,
+			'site_wide' => !( function_exists('is_multisite') && is_multisite() ),
 			'add_credits' => true,
 			);
 		
-		update_option('search_reloaded', $o);
+		update_site_option('search_reloaded', $o);
 		
 		if ( get_option('search_reloaded_version') || get_option('search_reloaded_installed') ) {
 			global $wpdb;
@@ -411,7 +419,10 @@ function load_ysearch() {
 endif;
 
 
-add_option('ysearch', '');
+if ( get_site_option('ysearch') === false ) {
+	update_site_option('ysearch', '');
+}
+
 $o = search_reloaded::get_options();
 
 register_activation_hook(__FILE__, array('search_reloaded', 'activate'));
