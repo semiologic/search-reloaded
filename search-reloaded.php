@@ -420,7 +420,7 @@ endif;
 
 
 if ( get_site_option('ysearch') === false ) {
-	update_site_option('ysearch', '');
+	update_site_option('ysearch', get_option('ysearch') ? get_option('ysearch') : '');
 }
 
 $o = search_reloaded::get_options();
