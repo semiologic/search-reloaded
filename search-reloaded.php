@@ -89,7 +89,7 @@ class search_reloaded {
 				. __('Search Reloaded requires WordPress 2.8 or later. Please upgrade your site.', 'search-reloaded')
 				. '</p>'
 				. '</div>' . "\n";
-		} elseif ( !$o['api_key'] ) {
+		} elseif ( empty($o['api_key']) || (isset($o['api_key']) && !$o['api_key']) ) {
 			echo '<div class="error">'
 				. '<p>'
 				. __('The Search Reloaded plugin is almost ready. Please configure it under <a href="options-general.php?page=search-reloaded">Settings / Search Reloaded</a>. This will allow you to use Yahoo\'s search API in place of WordPress to search your site.', 'seach-reloaded')
