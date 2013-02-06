@@ -3,8 +3,8 @@
 Plugin Name: Search Reloaded
 Plugin URI: http://www.semiologic.com/software/search-reloaded/
 Description: Replaces the default WordPress search engine with Yahoo! search.
-Version: 4.1
-Author: Denis de Bernardy
+Version: 4.2
+Author: Denis de Bernardy & Mike Koepke
 Author URI: http://www.getsemiologic.com
 Text Domain: search-reloaded
 Domain Path: /lang
@@ -146,7 +146,7 @@ class search_reloaded {
 		ob_get_clean();
 		$done = true;
 		
-		$start = intval($wp_query->query['paged']) ? ( 10 * ( intval($wp_query->query['paged']) - 1 ) ) : 0;
+		$start = (isset($wp_query->query['paged']) && intval($wp_query->query['paged'])) ? ( 10 * ( intval($wp_query->query['paged']) - 1 ) ) : 0;
 		
 		# build search query
 		$o = search_reloaded::get_options();
@@ -154,9 +154,9 @@ class search_reloaded {
 		$s = trim(stripslashes($_GET['s']));
 		
 		if ( $o['site_wide'] ) {
-			$s .= ' site:' . search_reloaded::get_domain();
+			$s .= ' sites:' . search_reloaded::get_domain();
 		} else {
-			$s .= ' site:' . get_option('home');
+			$s .= ' sites:' . get_option('home');
 		}
 		
 		load_ysearch();
@@ -304,7 +304,7 @@ class search_reloaded {
 	 * @return array $options
 	 **/
 
-	function get_options() {
+	static function get_options() {
 		static $o;
 		
 		if ( isset($o) && !is_admin() )
@@ -359,7 +359,7 @@ class search_reloaded {
 	 * @return string $domain
 	 **/
 
-	function get_domain() {
+	static function get_domain() {
 		static $site_domain;
 		
 		if ( isset($site_domain) )

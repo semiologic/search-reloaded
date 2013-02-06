@@ -1,0 +1,3 @@
+[submodule "ysearch"]
+	path = ysearch
+	url = ssh://git@roundtopsolutions.com/home/git/semiologic/lib/ysearch
