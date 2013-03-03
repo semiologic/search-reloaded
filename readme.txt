@@ -6,15 +6,17 @@ Requires at least: 2.8
 Tested up to: 3.5
 Stable tag: trunk
 
+Lets you manage use Yahoo! as your site's search engine.
+
+
 == Description ==
 
-No longer supported as Yahoo search is now a paid service
+The Search Reloaded plugin for WordPress lets you use Yahoo! as your site's search engine.
+
 
 = Help Me! =
 
-The [Semiologic forum](http://forum.semiologic.com) is the best place to report issues. Please note, however, that while community members and I do our best to answer all queries, we're assisting you on a voluntary basis.
-
-If you require more dedicated assistance, consider using [Semiologic Pro](http://www.getsemiologic.com).
+The [Semiologic forum](http://forum.semiologic.com) is the best place to report issues.
 
 
 == Installation ==
@@ -25,4 +27,35 @@ If you require more dedicated assistance, consider using [Semiologic Pro](http:/
 
 == Change Log ==
 
-No longer supported
+= 4.2 =
+
+- WP 3.5 compat
+- Fixed unknown index warnings
+
+= 4.1 =
+
+- WP 3.0 compat
+
+= 4.0.4 =
+
+- Avoid using broken WP functions
+
+= 4.0.3 =
+
+- Fix an HTML Validation issue when the plugin is combined with Fancy Excerpts
+
+= 4.0.2 =
+
+- Caption tweak to make the "configure me" prompt more user-friendly
+
+= 4.0.1 =
+
+- Fix cache on repeat-queries
+- Improve search formatting
+
+= 4.0 =
+
+- Complete rewrite
+- Switch to using Yahoo's BOSS engine
+- Localization
+- Code enhancements and optimizations
