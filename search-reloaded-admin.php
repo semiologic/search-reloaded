@@ -7,6 +7,66 @@
 
 class search_reloaded_admin {
 	/**
+	 * Plugin instance.
+	 *
+	 * @see get_instance()
+	 * @type object
+	 */
+	protected static $instance = NULL;
+
+	/**
+	 * URL to this plugin's directory.
+	 *
+	 * @type string
+	 */
+	public $plugin_url = '';
+
+	/**
+	 * Path to this plugin's directory.
+	 *
+	 * @type string
+	 */
+	public $plugin_path = '';
+
+	/**
+	 * Access this plugin’s working instance
+	 *
+	 * @wp-hook plugins_loaded
+	 * @return  object of this class
+	 */
+	public static function get_instance()
+	{
+		NULL === self::$instance and self::$instance = new self;
+
+		return self::$instance;
+	}
+
+
+	/**
+	 * Constructor.
+	 *
+	 *
+	 */
+
+	public function __construct() {
+	    $this->plugin_url    = plugins_url( '/', __FILE__ );
+	  	$this->plugin_path   = plugin_dir_path( __FILE__ );
+
+		$this->init();
+    }
+
+	/**
+	 * init()
+	 *
+	 * @return void
+	 **/
+
+	function init() {
+		// more stuff: register actions and filters
+		add_action('settings_page_search-reloaded', array($this, 'save_options'), 0);
+	}
+
+    /**
 	 * save_options()
 	 *
 	 * @return void
@@ -43,7 +103,7 @@ class search_reloaded_admin {
 	 * @return void
 	 **/
 
-	function edit_options() {
+	static function edit_options() {
 		echo '<div class="wrap">' . "\n"
 			. '<form action="" method="post">' . "\n";
 		
@@ -121,5 +181,4 @@ class search_reloaded_admin {
 	} # edit_options()
 } # search_reloaded_admin
 
-add_action('settings_page_search-reloaded', array('search_reloaded_admin', 'save_options'), 0);
-?>
+$search_reloaded_admin = search_reloaded_admin::get_instance();

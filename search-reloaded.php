@@ -3,11 +3,12 @@
 Plugin Name: Search Reloaded
 Plugin URI: http://www.semiologic.com/software/search-reloaded/
 Description: Replaces the default WordPress search engine with Yahoo! search.
-Version: 4.2
+Version: 4.3 dev
 Author: Denis de Bernardy & Mike Koepke
 Author URI: http://www.getsemiologic.com
 Text Domain: search-reloaded
 Domain Path: /lang
+License: Dual licensed under the MIT and GPLv2 licenses
 */
 
 /*
@@ -20,9 +21,6 @@ http://www.mesoconcepts.com/license/
 **/
 
 
-load_plugin_textdomain('search-reloaded', false, dirname(plugin_basename(__FILE__)) . '/lang');
-
-
 /**
  * search_reloaded
  *
@@ -31,6 +29,101 @@ load_plugin_textdomain('search-reloaded', false, dirname(plugin_basename(__FILE_
 
 class search_reloaded {
 	/**
+	 * Plugin instance.
+	 *
+	 * @see get_instance()
+	 * @type object
+	 */
+	protected static $instance = NULL;
+
+	/**
+	 * URL to this plugin's directory.
+	 *
+	 * @type string
+	 */
+	public $plugin_url = '';
+
+	/**
+	 * Path to this plugin's directory.
+	 *
+	 * @type string
+	 */
+	public $plugin_path = '';
+
+	/**
+	 * Access this plugin’s working instance
+	 *
+	 * @wp-hook plugins_loaded
+	 * @return  object of this class
+	 */
+	public static function get_instance()
+	{
+		NULL === self::$instance and self::$instance = new self;
+
+		return self::$instance;
+	}
+
+	/**
+	 * Loads translation file.
+	 *
+	 * Accessible to other classes to load different language files (admin and
+	 * front-end for example).
+	 *
+	 * @wp-hook init
+	 * @param   string $domain
+	 * @return  void
+	 */
+	public function load_language( $domain )
+	{
+		load_plugin_textdomain(
+			$domain,
+			FALSE,
+			$this->plugin_path . 'lang'
+		);
+	}
+
+	/**
+	 * Constructor.
+	 *
+	 *
+	 */
+	public function __construct() {
+	    $this->plugin_url    = plugins_url( '/', __FILE__ );
+        $this->plugin_path   = plugin_dir_path( __FILE__ );
+        $this->load_language( 'search-reloaded' );
+
+		add_action( 'plugins_loaded', array ( $this, 'init' ) );
+    }
+
+
+	/**
+	 * init()
+	 *
+	 * @return void
+	 **/
+
+	function init() {
+		// more stuff: register actions and filters
+		if ( get_site_option('ysearch') === false ) {
+			update_site_option('ysearch', get_option('ysearch') ? get_option('ysearch') : '');
+		}
+
+		$o = search_reloaded::get_options();
+
+		register_activation_hook(__FILE__, array($this, 'activate'));
+		add_action('admin_menu', array($this, 'admin_menu'));
+
+		if ( !extension_loaded('simplexml') || !function_exists('get_transient') || !$o['api_key'] ) {
+			add_action('admin_notices', array($this, 'admin_notices'));
+		} elseif ( !is_admin() ) {
+			add_action('loop_start', array($this, 'loop_start'));
+		}
+
+		unset($o);
+	}
+
+
+    /**
 	 * activate()
 	 *
 	 * @return void
@@ -71,7 +164,7 @@ class search_reloaded {
 	 * @return void
 	 **/
 
-	function admin_notices() {
+	static function admin_notices() {
 		$o = search_reloaded::get_options();
 		
 		if ( !current_user_can('manage_options') ||
@@ -119,7 +212,7 @@ class search_reloaded {
 		if ( $done )
 			return;
 		
-		add_action('loop_end', array('search_reloaded', 'loop_end'));
+		add_action('loop_end', array($this, 'loop_end'));
 		ob_start();
 		$done = true;
 	} # loop_start()
@@ -367,7 +460,14 @@ class search_reloaded {
 		
 		$site_domain = get_option('home');
 		$site_domain = parse_url($site_domain);
-		$site_domain = $site_domain['host'];
+        if ($site_domain == false)
+            return false;
+        elseif (is_array($site_domain)) {
+            if (isset($site_domain['host']))
+                $site_domain = $site_domain['host'];
+            else
+                return false;
+        }
 		$site_domain = preg_replace("/^www\./i", '', $site_domain);
 		
 		# The following is not bullet proof, but it's good enough for a WP site
@@ -418,21 +518,4 @@ function load_ysearch() {
 } # load_ysearch()
 endif;
 
-
-if ( get_site_option('ysearch') === false ) {
-	update_site_option('ysearch', get_option('ysearch') ? get_option('ysearch') : '');
-}
-
-$o = search_reloaded::get_options();
-
-register_activation_hook(__FILE__, array('search_reloaded', 'activate'));
-add_action('admin_menu', array('search_reloaded', 'admin_menu'));
-
-if ( !extension_loaded('simplexml') || !function_exists('get_transient') || !$o['api_key'] ) {
-	add_action('admin_notices', array('search_reloaded', 'admin_notices'));
-} elseif ( !is_admin() ) {
-	add_action('loop_start', array('search_reloaded', 'loop_start'));
-}
-
-unset($o);
-?>
+$search_reloaded = search_reloaded::get_instance();

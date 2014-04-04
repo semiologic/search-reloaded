@@ -27,6 +27,10 @@ The [Semiologic forum](http://forum.semiologic.com) is the best place to report 
 
 == Change Log ==
 
+= 4.3 =
+
+- Code refactoring
+
 = 4.2 =
 
 - WP 3.5 compat
