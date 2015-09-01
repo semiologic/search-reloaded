@@ -2,10 +2,10 @@
 /*
 Plugin Name: Search Reloaded
 Plugin URI: http://www.semiologic.com/software/search-reloaded/
-Description: Replaces the default WordPress search engine with Yahoo! search.
-Version: 4.3 dev
+Description: RETIRED - Replaces the default WordPress search engine with Yahoo! search.
+Version: 4.2.1
 Author: Denis de Bernardy & Mike Koepke
-Author URI: http://www.getsemiologic.com
+Author URI: https://www.semiologic.com
 Text Domain: search-reloaded
 Domain Path: /lang
 License: Dual licensed under the MIT and GPLv2 licenses
@@ -20,6 +20,31 @@ This software is copyright Mesoconcepts  and is distributed under the terms of t
 http://www.mesoconcepts.com/license/
 **/
 
+/*
+ * This plugin has been retired.  No further development will occur on it.
+ * */
+
+// Disable the plugin
+
+$active_plugins = get_option('active_plugins');
+
+if ( !is_array($active_plugins) )
+{
+	$active_plugins = array();
+}
+
+foreach ( (array) $active_plugins as $key => $plugin )
+{
+	if ( $plugin == 'search-reloaded/search-reloaded.php' )
+	{
+		unset($active_plugins[$key]);
+		break;
+	}
+}
+
+sort($active_plugins);
+
+update_option('active_plugins', $active_plugins);
 
 /**
  * search_reloaded

@@ -1,10 +1,12 @@
 === Search Reloaded ===
 Contributors: Denis-de-Bernardy
-Donate link: http://www.semiologic.com/partners/
+Donate link: https://www.semiologic.com/donate/
 Tags: semiologic
 Requires at least: 2.8
 Tested up to: 3.5
 Stable tag: trunk
+
+> *This plugin has been retired.  No further development will occur on it.*
 
 Lets you manage use Yahoo! as your site's search engine.
 
@@ -26,6 +28,10 @@ The [Semiologic forum](http://forum.semiologic.com) is the best place to report 
 
 
 == Change Log ==
+
+= 4.3.1 =
+
+- Development has ceased on this plugin.  Updated source and readme accordingly
 
 = 4.3 =
 
