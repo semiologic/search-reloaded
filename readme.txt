@@ -6,12 +6,12 @@ Requires at least: 2.8
 Tested up to: 3.5
 Stable tag: trunk
 
-> *This plugin has been retired.  No further development will occur on it.*
-
 Lets you manage use Yahoo! as your site's search engine.
 
 
 == Description ==
+
+> *This plugin has been retired.  No further development will occur on it.*
 
 The Search Reloaded plugin for WordPress lets you use Yahoo! as your site's search engine.
 

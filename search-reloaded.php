@@ -3,7 +3,7 @@
 Plugin Name: Search Reloaded
 Plugin URI: http://www.semiologic.com/software/search-reloaded/
 Description: RETIRED - Replaces the default WordPress search engine with Yahoo! search.
-Version: 4.2.1
+Version: 4.2.2
 Author: Denis de Bernardy & Mike Koepke
 Author URI: https://www.semiologic.com
 Text Domain: search-reloaded
